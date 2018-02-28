@@ -66,8 +66,13 @@ export class Ng2KnobDirective implements OnInit {
   element: HTMLElement;
   @Input('value')
   set valueSetter(value) {
+      let previousValue = this.value;
       this.value = value;
-      this.setValue(value);
+      if (previousValue) {
+          this.setValue(value);
+      } else {
+          this.draw();
+      }
   }
   @Input() label: number;
   @Input() options: any;
