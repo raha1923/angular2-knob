@@ -68,7 +68,7 @@ export class Ng2KnobDirective implements OnInit {
   set valueSetter(value) {
       let previousValue = this.value;
       this.value = value;
-      if (previousValue) {
+      if (previousValue && this.options) {
           this.setValue(value);
       } else {
           this.draw();
