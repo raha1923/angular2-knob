@@ -166,11 +166,13 @@ export class Ng2KnobDirective implements OnInit {
   ngOnChanges(changes:any) {
 
     if (this.defaultOptions != null && changes.options != null && changes.options.currentValue != null && this.value != null) {
+      console.log('options updated')
       this.options = (<any>Object).assign(this.defaultOptions, changes.options.currentValue);
       this.draw();
     }
 
-    if (this.defaultOptions != null && this.options != null && changes.value && changes.value.currentValue != null && changes.value.previousValue != null && changes.value.currentValue !== changes.value.previousValue) {
+    if (this.defaultOptions != null && this.options != null && changes.value && changes.value.currentValue != null && changes.value.currentValue !== changes.value.previousValue) {
+      console.log('value updated')
       this.setValue(changes.value.currentValue);
     }
   }
