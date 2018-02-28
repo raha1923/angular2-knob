@@ -64,7 +64,11 @@ export interface Options {
 })
 export class Ng2KnobDirective implements OnInit {
   element: HTMLElement;
-  @Input() value: number;
+  @Input('value')
+  set valueSetter(value) {
+      this.value = value;
+      this.setValue(value);
+  }
   @Input() label: number;
   @Input() options: any;
   @Output() valueChange = new EventEmitter<number>();
@@ -80,6 +84,7 @@ export class Ng2KnobDirective implements OnInit {
   valueElem: any;
   defaultOptions: Options;
   animations: any;
+  value: number;
 
   constructor(private el: ElementRef) {
 
@@ -171,12 +176,6 @@ export class Ng2KnobDirective implements OnInit {
       this.draw();
     }
 
-    if (this.defaultOptions != null && this.options != null && changes.value && changes.value.currentValue != null && changes.value.currentValue !== changes.value.previousValue) {
-      if (changes.value.previousValue != null) {
-
-      }
-      this.setValue(changes.value.currentValue);
-    }
   }
 
   /**
