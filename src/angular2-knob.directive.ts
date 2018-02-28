@@ -173,8 +173,7 @@ export class Ng2KnobDirective implements OnInit {
 
     if (this.defaultOptions != null && this.options != null && changes.value && changes.value.currentValue != null && changes.value.currentValue !== changes.value.previousValue) {
       if (changes.value.previousValue != null) {
-          this.options = (<any>Object).assign(this.defaultOptions, changes.options.currentValue);
-          this.draw();
+
       }
       this.setValue(changes.value.currentValue);
     }
@@ -538,7 +537,9 @@ export class Ng2KnobDirective implements OnInit {
    *   Set a value
    */
   setValue(newValue: any) {
+    console.log('step 1')
     if ((!this.inDrag) && this.value >= this.options.min && this.value <= this.options.max) {
+      console.log('step 2')
       const radians = this.valueToRadians(newValue, this.options.max, this.options.endAngle, this.options.startAngle, this.options.min);
       this.value = Math.round(((~~(((newValue < 0) ? -0.5 : 0.5) + (newValue / this.options.step))) * this.options.step) * 100) / 100;
       if (this.options.step < 1) {
@@ -549,6 +550,7 @@ export class Ng2KnobDirective implements OnInit {
       this.valueArc.endAngle(radians);
       d3.select(this.element).select('#valueArc').attr('d', this.valueArc);
       if (this.options.displayInput) {
+          console.log('step 3')
         let v = this.label || this.value;
         if (typeof this.options.inputFormatter === 'function') {
           v = this.options.inputFormatter(v);
